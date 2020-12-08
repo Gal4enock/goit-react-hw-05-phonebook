@@ -1,5 +1,5 @@
 .appear {
-  transform: translateX(-150%);
+  transform: translateX(-100%);
 }
 .appearActive {
   transform: translateX(0);

@@ -72,7 +72,7 @@ class App extends Component {
     const {filter} = this.state;
     return (
       <div>
-        <CSSTransition in={true} appear timeout={500} classNames={Style}>
+        <CSSTransition in={true} appear timeout={500} classNames={Style} unmountOnExit>
           <h1 className={Style.fontColor}>Phonebook</h1>
         </CSSTransition>
         <ContactForm toAddContacts={this.addContacts}/>
