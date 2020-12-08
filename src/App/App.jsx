@@ -5,6 +5,7 @@ import {CSSTransition} from 'react-transition-group';
 import Contacts from '../Contacts/Contacts';
 import ContactForm from '../ContactForm/ContactForm';
 import Filter from '../FilterContacts/FilterContacts';
+import Notification from '../Notification';
 
 import Style from './App.module.css'
 
@@ -12,7 +13,8 @@ import Style from './App.module.css'
 class App extends Component {
   state = {
     contacts: [],
-    filter: ''
+    filter: '',
+    doubleName: null
   }
 
   localContacts = '';
@@ -41,11 +43,19 @@ class App extends Component {
       id: uuidv4(),
       number
     };
-    
+    this.setState({doubleName: null})
     const doubleName = this.state.contacts.find(el => el.name === contact.name);
     if (doubleName) {
-      alert(`${contact.name} is already in contacts`);
-      return
+      
+      // alert(`${contact.name} is already in contacts`);
+      // return <Notification name={contact.name }/>
+      
+        this.setState({ doubleName: contact.name })
+        setTimeout(() => {
+          this.setState({ doubleName: null })
+        }, 2000)
+      
+      return 
     }
     this.setState(prevState => {
       return {
@@ -69,16 +79,18 @@ class App extends Component {
     }
     
   render() {
-    const {filter} = this.state;
+    const { filter } = this.state;
+    
     return (
-      <div>
+      <div className={Style.Container}>
         <CSSTransition in={true} appear timeout={500} classNames={Style} unmountOnExit>
           <h1 className={Style.fontColor}>Phonebook</h1>
         </CSSTransition>
         <ContactForm toAddContacts={this.addContacts}/>
         <h2>Contacts</h2>
         <Filter value={filter} toFilter={this.handleChange} />
-        <Contacts contacts={this.handleFilter()} onDelete={this.handleDelete}/>
+        <Contacts contacts={this.handleFilter()} onDelete={this.handleDelete} />
+        {this.state.doubleName ? <Notification name={this.state.doubleName} /> : ''}
       </div>
     )
   }
