@@ -90,7 +90,9 @@ class App extends Component {
         <h2>Contacts</h2>
         <Filter value={filter} toFilter={this.handleChange} />
         <Contacts contacts={this.handleFilter()} onDelete={this.handleDelete} />
-        {this.state.doubleName ? <Notification name={this.state.doubleName} /> : ''}
+          <CSSTransition in={this.state.doubleName} timeout={250} classNames={Style} unmountOnExit>
+            <Notification name={this.state.doubleName} />
+          </CSSTransition>
       </div>
     )
   }
