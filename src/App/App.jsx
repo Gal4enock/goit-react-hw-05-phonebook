@@ -1,8 +1,13 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import {CSSTransition} from 'react-transition-group';
+
 import Contacts from '../Contacts/Contacts';
 import ContactForm from '../ContactForm/ContactForm';
-import Filter from '../FilterContacts/FilterContacts'
+import Filter from '../FilterContacts/FilterContacts';
+
+import Style from './App.module.css'
+
 
 class App extends Component {
   state = {
@@ -67,7 +72,9 @@ class App extends Component {
     const {filter} = this.state;
     return (
       <div>
-        <h1>Phonebook</h1>
+        <CSSTransition in={true} appear timeout={500} classNames={Style}>
+          <h1 className={Style.fontColor}>Phonebook</h1>
+        </CSSTransition>
         <ContactForm toAddContacts={this.addContacts}/>
         <h2>Contacts</h2>
         <Filter value={filter} toFilter={this.handleChange} />
